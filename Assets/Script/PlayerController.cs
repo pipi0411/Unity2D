@@ -9,10 +9,13 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded; // Flag to check if the player is grounded
     private Animator animator;
     private Rigidbody2D rb; // Reference to the Rigidbody2D component
+    private GameManager gameManager;
+
     private void Awake()
     {
         animator = GetComponent<Animator>(); // Get the Animation component attached to this GameObject
-        rb = GetComponent<Rigidbody2D>(); // Get the Rigidbody2D component attached to this GameObject
+        rb = GetComponent<Rigidbody2D>(); 
+        gameManager = FindAnyObjectByType<GameManager>(); // Find the GameManager in the scene
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -23,6 +26,10 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (gameManager.IsGameOver()) // Check if the game is over
+        {
+            return; // Exit the Update method if the game is over
+        }
         HandleMovement();
         HandleJump(); // Call the HandleJump method to check for jump input
         UpdateAnimation(); // Call the UpdateAnimation method to update the animation state
