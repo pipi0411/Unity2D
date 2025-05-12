@@ -19,5 +19,11 @@ public class PlayerCollision : MonoBehaviour
             gameManager.GameOver(); // Call the GameOver method in the GameManager
             Destroy(gameObject); // Destroy the player object
         }
+        else if (other.CompareTag("Enemy"))
+        {
+            gameManager.GameOver(); // Call the GameOver method in the GameManager
+            Destroy(gameObject); // Destroy the player object
+        }
+        
     }
 }
