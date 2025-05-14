@@ -39,10 +39,10 @@ public class GameManager : MonoBehaviour
     }
     public void RestartGame()
     {
+        Time.timeScale = 1; // Resume the game
         isGameOver = false; // Reset the game over flag
         score = 0; // Reset the score to 0
         UpdateScoreText(); // Update the score text display
-        Time.timeScale = 1; // Resume the game
         SceneManager.LoadScene("Game"); // Reload the current scene
     }
     public bool IsGameOver()
