@@ -60,40 +60,50 @@ public class EnemyPatrol : MonoBehaviour
         transform.localScale = localScale;
     }
 
+    // void OnCollisionEnter2D(Collision2D collision)
+    // {
+    //     if (gameManager != null && gameManager.IsGameOver()) return;
+    //     if(collision.gameObject.CompareTag("Player"))
+    //     {
+    //         Vector2 contactPoint = collision.GetContact(0).point; // Lấy điểm va chạm
+    //         Vector2 colliderCenter = GetComponent<Collider2D>().bounds.center; // Lấy tâm của enemy collider
+    //         Vector2 colliderSize = GetComponent<Collider2D>().bounds.size; // Lấy kích thước của enemy collider
+    //         Vector2 colliderOffset = GetComponent<Collider2D>().offset; // Lấy offset của enemy collider
+
+    //         print("contactPoint: " + contactPoint.y + " " + contactPoint.x);
+    //         print("enemyCenter: " + colliderCenter.y + " " + colliderCenter.x);
+    //         print("enemySize: " + colliderSize.y + " " + colliderSize.x);
+
+    //         bool yCheck = contactPoint.y > colliderCenter.y;
+    //         bool xCheck = contactPoint.x > colliderCenter.x - colliderSize.x / 2 && contactPoint.x < colliderCenter.x + colliderSize.x / 2;
+
+    //         // if (contactPoint.y > colliderCenter.y && contactPoint.x > colliderCenter.x - colliderSize.x / 2 && contactPoint.x < colliderCenter.x + colliderSize.x / 2)
+    //         // {
+    //         //     // Nếu va chạm từ trên xuống
+    //         //     gameManager.AddScore(1); // Gọi hàm AddScore trong GameManager
+    //         //     Destroy(gameObject); // Hủy enemy
+    //         // }
+    //         if (yCheck && xCheck)
+    //         {
+    //             // Nếu va chạm từ trên xuống
+    //             gameManager.AddScore(1); // Gọi hàm AddScore trong GameManager
+    //             Destroy(gameObject); // Hủy enemy
+    //         }
+    //         else
+    //         {
+    //             print(yCheck + " " + xCheck);
+    //             gameManager.GameOver(); // Gọi hàm GameOver trong GameManager
+    //         }
+    //     }
+    // }
+
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (gameManager != null && gameManager.IsGameOver()) return;
-        if(collision.gameObject.CompareTag("Player"))
-        {
-            Vector2 contactPoint = collision.GetContact(0).point; // Lấy điểm va chạm
-            Vector2 colliderCenter = GetComponent<Collider2D>().bounds.center; // Lấy tâm của enemy collider
-            Vector2 colliderSize = GetComponent<Collider2D>().bounds.size; // Lấy kích thước của enemy collider
-            Vector2 colliderOffset = GetComponent<Collider2D>().offset; // Lấy offset của enemy collider
+    if (gameManager != null && gameManager.IsGameOver()) return;
 
-            print("contactPoint: " + contactPoint.y + " " + contactPoint.x);
-            print("enemyCenter: " + colliderCenter.y + " " + colliderCenter.x);
-            print("enemySize: " + colliderSize.y + " " + colliderSize.x);
-
-            bool yCheck = contactPoint.y > colliderCenter.y;
-            bool xCheck = contactPoint.x > colliderCenter.x - colliderSize.x / 2 && contactPoint.x < colliderCenter.x + colliderSize.x / 2;
-
-            // if (contactPoint.y > colliderCenter.y && contactPoint.x > colliderCenter.x - colliderSize.x / 2 && contactPoint.x < colliderCenter.x + colliderSize.x / 2)
-            // {
-            //     // Nếu va chạm từ trên xuống
-            //     gameManager.AddScore(1); // Gọi hàm AddScore trong GameManager
-            //     Destroy(gameObject); // Hủy enemy
-            // }
-            if (yCheck && xCheck)
-            {
-                // Nếu va chạm từ trên xuống
-                gameManager.AddScore(1); // Gọi hàm AddScore trong GameManager
-                Destroy(gameObject); // Hủy enemy
-            }
-            else
-            {
-                print(yCheck + " " + xCheck);
-                gameManager.GameOver(); // Gọi hàm GameOver trong GameManager
-            }
-        }
+    if (collision.gameObject.CompareTag("Player"))
+    {
+        gameManager.GameOver(); // Gọi hàm GameOver trong GameManager
+    }
     }
 }
