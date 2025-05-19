@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gameManager.IsGameOver()) // Check if the game is over
+        if (gameManager.IsGameOver() || gameManager.IsGameWin()) // Check if the game is over
         {
             return; // Exit the Update method if the game is over
         }

@@ -7,7 +7,7 @@ public class PlayerCollision : MonoBehaviour
     {
         gameManager = FindAnyObjectByType<GameManager>(); // Find the GameManager in the scene
     }
-    private void  OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Coin"))
         {
@@ -18,6 +18,11 @@ public class PlayerCollision : MonoBehaviour
         {
             gameManager.GameOver(); // Call the GameOver method in the GameManager
             Destroy(gameObject); // Destroy the player object
+        }
+        else if (other.CompareTag("Key"))
+        {
+            gameManager.GameWin();
+            Destroy(other.gameObject);
         }
     }
 }

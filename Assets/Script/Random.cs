@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Random : MonoBehaviour
 {
-    [SerializeField] int width;
+    [SerializeField] int width, le;
     [SerializeField] GameObject dirt;
     void Start()
     {
