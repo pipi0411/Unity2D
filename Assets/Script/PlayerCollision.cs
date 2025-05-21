@@ -2,16 +2,19 @@ using UnityEngine;
 
 public class PlayerCollision : MonoBehaviour
 {
-    private GameManager gameManager; // Reference to the GameManager script
+    private GameManager gameManager; 
+    private AudioManager audioManager;
     private void Awake()
     {
-        gameManager = FindAnyObjectByType<GameManager>(); // Find the GameManager in the scene
+        gameManager = FindAnyObjectByType<GameManager>();
+        audioManager = FindAnyObjectByType<AudioManager>();
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Coin"))
         {
-            Destroy(other.gameObject); // Destroy the coin object
+            Destroy(other.gameObject);
+            audioManager.PlayCoinSound();
             gameManager.AddScore(1);
         }
         else if (other.CompareTag("Trap"))

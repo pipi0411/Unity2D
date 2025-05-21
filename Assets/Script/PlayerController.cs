@@ -10,14 +10,15 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     private Rigidbody2D rb; // Reference to the Rigidbody2D component
     private GameManager gameManager;
+    private AudioManager audioManager;
 
     private void Awake()
     {
-        animator = GetComponent<Animator>(); // Get the Animation component attached to this GameObject
-        rb = GetComponent<Rigidbody2D>(); 
-        gameManager = FindAnyObjectByType<GameManager>(); // Find the GameManager in the scene
+        animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
+        gameManager = FindAnyObjectByType<GameManager>(); 
+        audioManager = FindAnyObjectByType<AudioManager>();
     }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         
@@ -52,9 +53,11 @@ public class PlayerController : MonoBehaviour
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
         if (isGrounded && Input.GetButtonDown("Jump")) // Check if the player is grounded and the jump button is pressed
         {
-            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse); 
-            animator.SetBool("isJumping", true); // Set the "isJumping" parameter in the Animator to true when jumping
+            audioManager.PlayJumpSound();
+            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            animator.SetBool("isJumping", true);
         }
+        
     }
     private void UpdateAnimation()
     {
