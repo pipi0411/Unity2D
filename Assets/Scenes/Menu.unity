@@ -1078,7 +1078,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2113306895}
         m_TargetAssemblyTypeName: Menu, Assembly-CSharp
-        m_MethodName: Level2
+        m_MethodName: LevelMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
