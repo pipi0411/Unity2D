@@ -23,8 +23,8 @@ public class Menu : MonoBehaviour
         Application.Quit();
     }
     // Chuyen scene level moi
-    public void LevelMenu()
+    public void LevelUI()
     {
-        SceneManager.LoadScene("LevelMenu");
+        SceneManager.LoadScene("LevelUI");
     }
 }
