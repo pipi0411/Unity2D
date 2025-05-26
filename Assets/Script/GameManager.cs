@@ -76,10 +76,19 @@ public class GameManager : MonoBehaviour
         UpdateScoreText(); 
         SceneManager.LoadScene("Game"); 
     }
-    public void MainMenu()
+    public void RestartLevel2()
     {
         Time.timeScale = 1; 
-        SceneManager.LoadScene("Menu"); 
+        isGameOver = false; 
+        isGameWin = false;
+        score = 0; 
+        UpdateScoreText(); 
+        SceneManager.LoadScene("Level2");
+    }
+    public void MainMenu()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene("Menu");
     }
     public bool IsGameOver()
     {
