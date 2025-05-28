@@ -11,12 +11,13 @@ public class GameManager : MonoBehaviour
     private bool isGameWin = false;
     void Start()
     {
+    Time.timeScale = 1; 
     if (scoreText == null)
-    {
-        GameObject scoreGO = GameObject.Find("ScoreText");
-        if (scoreGO != null)
-            scoreText = scoreGO.GetComponent<TextMeshProUGUI>();
-    }
+        {
+            GameObject scoreGO = GameObject.Find("ScoreText");
+            if (scoreGO != null)
+                scoreText = scoreGO.GetComponent<TextMeshProUGUI>();
+        }
 
     if (gameOverUI == null)
         gameOverUI = GameObject.Find("GameOverUI");

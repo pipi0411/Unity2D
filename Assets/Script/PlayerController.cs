@@ -25,13 +25,18 @@ public class PlayerController : MonoBehaviour
     }
 
     // Update is called once per frame
+    void FixedUpdate()
+    {
+        if (gameManager.IsGameOver() || gameManager.IsGameWin())
+        return;
+        HandleMovement();
+    }
     void Update()
     {
         if (gameManager.IsGameOver() || gameManager.IsGameWin()) // Check if the game is over
         {
             return; // Exit the Update method if the game is over
         }
-        HandleMovement();
         HandleJump(); // Call the HandleJump method to check for jump input
         UpdateAnimation(); // Call the UpdateAnimation method to update the animation state
     }
