@@ -11,24 +11,27 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb; // Reference to the Rigidbody2D component
     private GameManager gameManager;
     private AudioManager audioManager;
+    private bool isAttacking = false;
+    private bool isHit = false;
+    private bool isDead = false;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
-        gameManager = FindAnyObjectByType<GameManager>(); 
+        gameManager = FindAnyObjectByType<GameManager>();
         audioManager = FindAnyObjectByType<AudioManager>();
     }
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
         if (gameManager.IsGameOver() || gameManager.IsGameWin())
-        return;
+            return;
         HandleMovement();
     }
     void Update()
@@ -37,6 +40,10 @@ public class PlayerController : MonoBehaviour
         {
             return; // Exit the Update method if the game is over
         }
+        if (Input.GetMouseButtonDown(0) && !isAttacking && !isHit && !isDead)
+        {
+            Attack();
+        }
         HandleJump(); // Call the HandleJump method to check for jump input
         UpdateAnimation(); // Call the UpdateAnimation method to update the animation state
     }
@@ -44,7 +51,7 @@ public class PlayerController : MonoBehaviour
     {
         // Get input from the horizontal and vertical axes (WASD or arrow keys)
         float moveX = Input.GetAxis("Horizontal");
-        rb.linearVelocity= new Vector2(moveX * speed, rb.linearVelocity.y); // Set the horizontal velocity based on input and speed
+        rb.linearVelocity = new Vector2(moveX * speed, rb.linearVelocity.y); // Set the horizontal velocity based on input and speed
         if (moveX != 0)
         {
             // Flip the player sprite based on the direction of movement
@@ -62,17 +69,44 @@ public class PlayerController : MonoBehaviour
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             animator.SetBool("isJumping", true);
         }
-        
+
     }
     private void UpdateAnimation()
     {
         bool isRunning = Mathf.Abs(rb.linearVelocity.x) > 0.1f; // Check if the player is moving
         animator.SetBool("isRunning", isRunning); // Set the "isRunning" parameter in the Animator based on movement
-        
+
         if (isGrounded && rb.linearVelocity.y <= 0) // Check if the player is grounded and not jumping
         {
             animator.SetBool("isJumping", false); // Set the "isJumping" parameter in the Animator to false when grounded
         }
+    }
+    public void Attack()
+    {
+        if (isDead || isHit) return;
+        isAttacking = true;
+        animator.SetBool("Attack", true);
+    }
+    public void Hit()
+    {
+        if (isDead) return;
+        isHit = true;
+        animator.SetTrigger("Hit");
+    }
+    public void Die()
+    {
+        isDead = true;
+        animator.SetTrigger("Die");
+        rb.linearVelocity = Vector2.zero;
+    }
+    public void EndAttack()
+    {
+        isAttacking = false;
+        animator.SetBool("Attack", false);
+    }
+    public void EndHit()
+    {
+        isHit = false;
     }
     
 }
