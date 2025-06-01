@@ -19,8 +19,8 @@ public class PlayerCollision : MonoBehaviour
         }
         else if (other.CompareTag("Trap"))
         {
-            gameManager.GameOver(); // Call the GameOver method in the GameManager
-            Destroy(gameObject); // Destroy the player object
+
+            GetComponent<PlayerController>().TakeDamage(1);
         }
         else if (other.CompareTag("Key"))
         {

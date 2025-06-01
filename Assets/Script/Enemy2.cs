@@ -59,6 +59,11 @@ public class EnemyPatrol : MonoBehaviour
         localScale.x *= -1;
         transform.localScale = localScale;
     }
+    public void TakeDamage(int damage)
+    {
+    // Có thể thêm hiệu ứng trúng đòn ở đây
+    Destroy(gameObject);
+    }
 
     // void OnCollisionEnter2D(Collision2D collision)
     // {

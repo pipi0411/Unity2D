@@ -1,11 +1,16 @@
 using UnityEngine;
+using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float speed = 5f; // Speed of the player movement
     [SerializeField] private float jumpForce = 5f; // Force applied when the player jumps
     [SerializeField] private LayerMask groundLayer; // Layer mask for the ground layer
-    [SerializeField] private Transform groundCheck; // Transform to check if the player is grounded
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private GameObject attackArea;
+    [SerializeField] private int maxHealth = 5;
+    [SerializeField] private BloodBarController bloodBar;
+    private int currentHealth;
     private bool isGrounded; // Flag to check if the player is grounded
     private Animator animator;
     private Rigidbody2D rb; // Reference to the Rigidbody2D component
@@ -24,6 +29,7 @@ public class PlayerController : MonoBehaviour
     }
     void Start()
     {
+        currentHealth = maxHealth;
 
     }
 
@@ -42,6 +48,7 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetMouseButtonDown(0) && !isAttacking && !isHit && !isDead)
         {
+            Debug.Log("Attack");
             Attack();
         }
         HandleJump(); // Call the HandleJump method to check for jump input
@@ -95,9 +102,13 @@ public class PlayerController : MonoBehaviour
     }
     public void Die()
     {
+        Debug.Log("Player died");
         isDead = true;
+        isAttacking = false;
+        isHit = false;
+        animator.SetBool("Attack", false);
+        animator.ResetTrigger("Hit");
         animator.SetTrigger("Die");
-        rb.linearVelocity = Vector2.zero;
     }
     public void EndAttack()
     {
@@ -108,5 +119,27 @@ public class PlayerController : MonoBehaviour
     {
         isHit = false;
     }
-    
+    public void EnableAttackArea()
+    {
+        attackArea.SetActive(true);
+    }
+    public void DisableAttackArea()
+    {
+        attackArea.SetActive(false);
+    }
+    public void TakeDamage(int damage)
+    {
+        if (isDead) return;
+        currentHealth -= damage;
+        bloodBar.SetHealth(currentHealth, maxHealth);
+        if (currentHealth <= 0)
+        {
+            currentHealth = 0;
+            Die();
+        }
+        else
+        {
+            Hit();
+        }
+    }
 }
