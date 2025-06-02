@@ -48,7 +48,6 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetMouseButtonDown(0) && !isAttacking && !isHit && !isDead)
         {
-            Debug.Log("Attack");
             Attack();
         }
         HandleJump(); // Call the HandleJump method to check for jump input
@@ -92,7 +91,7 @@ public class PlayerController : MonoBehaviour
     {
         if (isDead || isHit) return;
         isAttacking = true;
-        animator.SetBool("Attack", true);
+        animator.SetTrigger("Attack");
     }
     public void Hit()
     {
@@ -102,18 +101,17 @@ public class PlayerController : MonoBehaviour
     }
     public void Die()
     {
-        Debug.Log("Player died");
         isDead = true;
         isAttacking = false;
         isHit = false;
-        animator.SetBool("Attack", false);
+        animator.ResetTrigger("Attack");
         animator.ResetTrigger("Hit");
         animator.SetTrigger("Die");
     }
     public void EndAttack()
     {
         isAttacking = false;
-        animator.SetBool("Attack", false);
+
     }
     public void EndHit()
     {

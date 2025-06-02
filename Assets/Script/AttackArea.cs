@@ -7,7 +7,7 @@ public class AttackArea : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            collision.GetComponent<EnemyPatrol>().TakeDamage(1);
+            collision.GetComponent<OrcAI>().TakeDamage(1);
         }
     }
 }
