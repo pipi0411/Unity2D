@@ -137,6 +137,11 @@ public class OrcAI : MonoBehaviour
         animator.ResetTrigger("Hit");
         animator.SetTrigger("Die");
         gameManager.AddScore(1);
+        Collider2D col = GetComponent<Collider2D>();
+        if (col != null)
+        {
+            col.enabled = false; // Tắt collider khi chết
+        }
         Destroy(gameObject, 2f);
 
     }
